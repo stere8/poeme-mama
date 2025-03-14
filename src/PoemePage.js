@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import poem from "./poemData"; // Importing the poem data
 import "./Poem.css"; // Import the CSS file for styling
 
@@ -10,55 +10,43 @@ import upcAvatar from "./assets/UPC.jpg";
 
 const PoemPage = () => {
   const audioRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    // Try autoplay with volume max
-    if (audioRef.current) {
-      audioRef.current.volume = 1.0;
+    const playAudio = () => {
       audioRef.current.play().catch(error => {
         console.log("Autoplay blocked: Waiting for user interaction", error);
       });
-    }
-
-    // Add click event listener to start audio if blocked
-    const enableAudio = () => {
-      if (audioRef.current && audioRef.current.paused) {
-        audioRef.current.play();
-      }
     };
 
-    document.addEventListener("click", enableAudio);
+    document.addEventListener("click", playAudio);
 
     return () => {
-      document.removeEventListener("click", enableAudio);
+      document.removeEventListener("click", playAudio);
     };
   }, []);
 
-  // ✅ Fix togglePlay function
   const togglePlay = () => {
-    if (audioRef.current.paused) {
-      audioRef.current.play();
-    } else {
+    if (isPlaying) {
       audioRef.current.pause();
+    } else {
+      audioRef.current.play();
     }
+    setIsPlaying(!isPlaying);
   };
 
   return (
     <div className="poem-container">
-      {/* 🎶 Background Music (Auto-plays when page opens) */}
+      {/* 🎶 Background Music */}
       <audio ref={audioRef} src="/media/background-music.mp3" loop />
 
-      {/* Floating Decorations */}
-      <div className="floating-decoration heart decoration-1"></div>
-      <div className="floating-decoration flower decoration-2"></div>
-      <div className="floating-decoration heart decoration-3"></div>
-      <div className="floating-decoration flower decoration-4"></div>
-      <div className="floating-decoration rosary decoration-5"></div>
-
-      {/* 🎵 Background Music Controls */}
+      {/* 🎵 Play/Pause Button with Icons */}
       <div className="music-controls">
-        <button onClick={togglePlay} className="music-button">
-          {audioRef.current && audioRef.current.paused ? "🎵 Play Music" : "⏸️ Pause Music"}
+        <button
+          onClick={togglePlay}
+          className={`music-button ${isPlaying ? "pause" : ""}`}
+        >
+          {isPlaying ? "Pause Music" : "Play Music"}
         </button>
       </div>
 
@@ -90,3 +78,4 @@ const PoemPage = () => {
 };
 
 export default PoemPage;
+
