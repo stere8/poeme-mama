@@ -1,9 +1,8 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import poem from "./poemData"; // Importing the poem data
 import "./Poem.css"; // Import the CSS file for styling
-import backgroundMusic from "./assets/background-music.mp3"; // Import the MP3
 
-// Import Avatars (Now Using .jpg)
+// Import Avatars
 import heAvatar from "./assets/HE.jpg";
 import naAvatar from "./assets/NA.jpg";
 import otAvatar from "./assets/OT.jpg";
@@ -11,6 +10,25 @@ import upcAvatar from "./assets/UPC.jpg";
 
 const PoemPage = () => {
   const audioRef = useRef(null);
+
+  useEffect(() => {
+    // Try to autoplay music when page loads
+    const playAudio = () => {
+      if (audioRef.current) {
+        audioRef.current.play().catch(error => {
+          console.log("Autoplay blocked: Waiting for user interaction", error);
+        });
+      }
+    };
+
+    playAudio(); // Try autoplay
+
+    document.addEventListener("click", playAudio); // Allow user interaction to trigger play
+
+    return () => {
+      document.removeEventListener("click", playAudio); // Cleanup listener
+    };
+  }, []);
 
   const togglePlay = () => {
     if (audioRef.current.paused) {
@@ -22,19 +40,21 @@ const PoemPage = () => {
 
   return (
     <div className="poem-container">
+      {/* 🎶 Background Music (Auto-plays when page opens) */}
+      <audio ref={audioRef} src="/music/background-music.mp3" loop />
+
       {/* Floating Decorations */}
       <div className="floating-decoration heart decoration-1"></div>
       <div className="floating-decoration flower decoration-2"></div>
       <div className="floating-decoration heart decoration-3"></div>
       <div className="floating-decoration flower decoration-4"></div>
-        <div className="floating-decoration rosary decoration-5"></div>
+      <div className="floating-decoration rosary decoration-5"></div>
 
-      {/* Background Music Controls 🎶 */}
+      {/* 🎵 Background Music Controls */}
       <div className="music-controls">
         <button onClick={togglePlay} className="music-button">
           {audioRef.current && audioRef.current.paused ? "🎵 Play Music" : "⏸️ Pause Music"}
         </button>
-        <audio ref={audioRef} src={backgroundMusic} loop />
       </div>
 
       {/* Title & Subtitle */}
