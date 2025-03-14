@@ -1,0 +1,175 @@
+/* 🌸 General Page Styling */
+body {
+  background: linear-gradient(180deg, #ffe4e1, #ffcad4); /* Soft pink gradient */
+  font-family: 'Georgia', serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* 📝 Poem Container */
+.poem-container {
+  max-width: 800px;
+  margin: 50px auto;
+  text-align: center;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 🎀 Title & Subtitle */
+.poem-title {
+  font-family: 'Merriweather', serif;
+  font-size: 2.5rem;
+  color: #e63946;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.poem-subtitle {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #6c757d;
+  margin-bottom: 30px;
+}
+
+/* 📜 Poem Styling */
+.poem {
+  text-align: left;
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+.stanza {
+  margin-bottom: 40px; /* More spacing between stanzas */
+  position: relative;
+  padding-right: 160px; /* Adds space for the avatars */
+}
+
+.line {
+  margin: 0;
+}
+
+/* 🔠 First Letter Styling */
+.first-letter {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #e63946;
+  margin-right: 5px;
+  display: inline-block;
+  font-family: 'Merriweather', serif;
+}
+
+/* 🌸 Floating Flowers & Hearts */
+@keyframes float {
+  0% { transform: translateY(0) rotate(0); opacity: 1; }
+  50% { transform: translateY(-20px) rotate(10deg); opacity: 0.8; }
+  100% { transform: translateY(-40px) rotate(-10deg); opacity: 0.5; }
+}
+
+.floating-decoration {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  opacity: 0.7;
+  animation: float 4s infinite ease-in-out alternate;
+}
+
+.heart {
+  background: url('https://cdn-icons-png.flaticon.com/512/1077/1077035.png') no-repeat center/contain;
+}
+
+.flower {
+  background: url('https://cdn-icons-png.flaticon.com/512/616/616494.png') no-repeat center/contain;
+}
+
+.decoration-1 { top: 5%; left: 10%; animation-duration: 5s; }
+.decoration-2 { top: 15%; right: 15%; animation-duration: 6s; }
+.decoration-3 { top: 50%; left: 5%; animation-duration: 4.5s; }
+.decoration-4 { top: 70%; right: 10%; animation-duration: 5.5s; }
+
+/* 🎭 Avatar Styling */
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  z-index: 2;
+}
+
+/* ✨ Floating Animations */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0); }
+}
+.floating-avatar {
+  animation: float 3s infinite;
+}
+
+/* 📌 Avatar Positions (All Aligned to the Right) */
+.he { top: 5%; right: 20px; animation-duration: 4s; }
+.na { top: 25%; right: 20px; animation-duration: 5s; }
+.ot { top: 50%; right: 20px; animation-duration: 6s; }
+.upc { top: 75%; right: 20px; animation-duration: 5.5s; }
+
+/* 📿 Floating Rosary */
+.rosary {
+  background: url('https://cdn-icons-png.flaticon.com/512/3497/3497604.png') no-repeat center/contain;
+  position: absolute;
+  width: 50px; /* Adjust size */
+  height: 50px;
+  opacity: 0.8;
+  animation: float 6s infinite ease-in-out alternate;
+}
+
+/* 📍 Position the Rosary in the Floating Decorations */
+.decoration-5 { top: 30%; left: 45%; animation-duration: 6s; }
+
+@media screen and (min-width: 1200px) { /* Large Screens */
+  .he, .na, .ot, .upc {
+    right: 100px; /* Move closer to text */
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .he, .na, .ot, .upc {
+    right: clamp(40px, 6vw, 90px); /* Moves avatars dynamically */
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .floating-decoration {
+    width: clamp(25px, 5vw, 35px); /* Responsive scaling */
+    height: clamp(25px, 5vw, 35px);
+  }
+  .decoration-1 { top: 8%; left: 10%; }
+  .decoration-2 { top: 18%; right: 12%; }
+  .decoration-3 { top: 55%; left: 8%; }
+  .decoration-4 { top: 75%; right: 8%; }
+  .decoration-5 { top: 35%; left: 50%; transform: translateX(-50%); }
+
+  .rosary {
+    top: 20%;
+    left: 50%;
+    width: clamp(35px, 5vw, 50px); /* Responsive scaling */
+    height: auto;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .he, .na, .ot, .upc {
+    right: clamp(40px, 8vw, 100px); /* Responsive positioning */
+  }
+  .rosary {
+    top: 12%; /* Keeps it visible */
+    left: 50%;
+    width: 70px; /* Slightly larger on bigger screens */
+    height: auto;
+  }
+}
+
