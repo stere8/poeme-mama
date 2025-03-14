@@ -12,24 +12,29 @@ const PoemPage = () => {
   const audioRef = useRef(null);
 
   useEffect(() => {
-    // Try to autoplay music when page loads
-    const playAudio = () => {
-      if (audioRef.current) {
-        audioRef.current.play().catch(error => {
-          console.log("Autoplay blocked: Waiting for user interaction", error);
-        });
+    // Try autoplay with volume max
+    if (audioRef.current) {
+      audioRef.current.volume = 1.0;
+      audioRef.current.play().catch(error => {
+        console.log("Autoplay blocked: Waiting for user interaction", error);
+      });
+    }
+
+    // Add click event listener to start audio if blocked
+    const enableAudio = () => {
+      if (audioRef.current && audioRef.current.paused) {
+        audioRef.current.play();
       }
     };
 
-    playAudio(); // Try autoplay
-
-    document.addEventListener("click", playAudio); // Allow user interaction to trigger play
+    document.addEventListener("click", enableAudio);
 
     return () => {
-      document.removeEventListener("click", playAudio); // Cleanup listener
+      document.removeEventListener("click", enableAudio);
     };
   }, []);
 
+  // ✅ Fix togglePlay function
   const togglePlay = () => {
     if (audioRef.current.paused) {
       audioRef.current.play();
