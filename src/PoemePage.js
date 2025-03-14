@@ -41,7 +41,7 @@ const PoemPage = () => {
   return (
     <div className="poem-container">
       {/* 🎶 Background Music (Auto-plays when page opens) */}
-      <audio ref={audioRef} src="/music/background-music.mp3" loop />
+      <audio ref={audioRef} src="/media/background-music.mp3" loop />
 
       {/* Floating Decorations */}
       <div className="floating-decoration heart decoration-1"></div>
